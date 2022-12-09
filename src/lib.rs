@@ -1410,11 +1410,9 @@ impl<'a, O: OutputBuffer> IriParser<'a, O> {
     fn read_url_codepoint_or_echar(&mut self, c: char) -> Result<(), IriParseError> {
         if c == '%' {
             self.read_echar()
-        } else if is_url_code_point(c) {
+        } else {
             self.output.push(c);
             Ok(())
-        } else {
-            self.parse_error(IriParseErrorKind::InvalidIriCodePoint(c))
         }
     }
 
@@ -1422,11 +1420,9 @@ impl<'a, O: OutputBuffer> IriParser<'a, O> {
     fn read_url_query_codepoint_or_echar(&mut self, c: char) -> Result<(), IriParseError> {
         if c == '%' {
             self.read_echar()
-        } else if is_url_query_code_point(c) {
+        } else {
             self.output.push(c);
             Ok(())
-        } else {
-            self.parse_error(IriParseErrorKind::InvalidIriCodePoint(c))
         }
     }
 
