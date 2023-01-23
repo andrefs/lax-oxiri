@@ -1274,7 +1274,12 @@ impl<'a, O: OutputBuffer> IriParser<'a, O> {
                             self.output_positions.authority_end = self.output.len();
                             self.parse_path_start(c)
                         }
-                        Some(c) => self.parse_error(IriParseErrorKind::InvalidHostCharacter(c)),
+                        //Some(c) => self.parse_error(IriParseErrorKind::InvalidHostCharacter(c)),
+                        Some(_) => {
+                            // should warn here
+                            self.output_positions.authority_end = self.output.len();
+                            self.parse_path_start(c)
+                        }
                     };
                 }
             }
@@ -1303,11 +1308,10 @@ impl<'a, O: OutputBuffer> IriParser<'a, O> {
             let c = self.input.next();
             match c {
                 Some(c) if c.is_ascii_digit() => self.output.push(c),
-                Some('/') | Some('?') | Some('#') | None => {
+                Some('/') | Some('?') | Some('#') | None | Some(_) => {
                     self.output_positions.authority_end = self.output.len();
                     return self.parse_path_start(c);
-                }
-                Some(c) => return self.parse_error(IriParseErrorKind::InvalidPortCharacter(c)),
+                } //Some(c) => return self.parse_error(IriParseErrorKind::InvalidPortCharacter(c)),
             }
         }
     }
