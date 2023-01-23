@@ -1412,22 +1412,22 @@ impl<'a, O: OutputBuffer> IriParser<'a, O> {
 
     #[inline]
     fn read_url_codepoint_or_echar(&mut self, c: char) -> Result<(), IriParseError> {
-        if c == '%' {
-            self.read_echar()
-        } else {
-            self.output.push(c);
-            Ok(())
-        }
+        //if c == '%' {
+        //    self.read_echar()
+        //} else {
+        self.output.push(c);
+        Ok(())
+        //}
     }
 
     #[inline]
     fn read_url_query_codepoint_or_echar(&mut self, c: char) -> Result<(), IriParseError> {
-        if c == '%' {
-            self.read_echar()
-        } else {
-            self.output.push(c);
-            Ok(())
-        }
+        //if c == '%' {
+        //    self.read_echar()
+        //} else {
+        self.output.push(c);
+        Ok(())
+        //}
     }
 
     #[inline]
